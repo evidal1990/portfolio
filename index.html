@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edith Cristina de Souza Ramos Vidal — Analytics Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080b10;
+      --bg2:      #0d1117;
+      --surface:  #111820;
+      --border:   rgba(255,255,255,0.06);
+      --border-h: rgba(56,189,248,0.4);
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --accent:   #38bdf8;
+      --fh:       'Syne', sans-serif;
+      --fb:       'DM Sans', sans-serif;
+      --ease:     cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fb);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s var(--ease), backdrop-filter 0.35s, border-color 0.35s;
+    }
+    nav.scrolled {
+      background: rgba(8,11,16,0.88);
+      backdrop-filter: blur(20px);
+      border-color: var(--border);
+    }
+    .nav-logo {
+      font-family: var(--fh); font-weight: 700; font-size: 1.05rem;
+      letter-spacing: -0.02em; color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      border: 1px solid var(--border-h); color: var(--accent);
+      padding: 0.45rem 1.1rem; border-radius: 8px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: rgba(56,189,248,0.1); }
+    @media (max-width: 768px) { .nav-links, .nav-cta { display: none; } }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: clamp(6rem,15vh,10rem) clamp(1.5rem,5vw,4rem) clamp(4rem,10vh,6rem);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 700px;
+      background: radial-gradient(ellipse at center, rgba(56,189,248,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 820px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s both;
+    }
+    .hero-tag-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 8px var(--accent);
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    h1 {
+      font-family: var(--fh);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800; line-height: 0.95; letter-spacing: -0.04em;
+      color: #f8fafc; margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.25s both;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-desc {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      color: var(--muted); max-width: 560px;
+      font-weight: 300; line-height: 1.75; margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.4s both;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 0.85rem;
+      animation: fadeUp 0.7s 0.55s both;
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.6rem; border-radius: 8px;
+      background: var(--accent); color: #040d14;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover {
+      background: #7dd3fc;
+      box-shadow: 0 0 28px rgba(56,189,248,0.4);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.6rem; border-radius: 8px;
+      border: 1px solid var(--border); color: var(--text);
+      background: rgba(255,255,255,0.03);
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-1px);
+    }
+
+    /* SECTION COMMONS */
+    section {
+      padding: clamp(4rem,9vw,7rem) clamp(1.5rem,5vw,4rem);
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: var(--fh);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      color: #f8fafc; line-height: 1.1; margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      font-size: 1rem; color: var(--muted);
+      max-width: 560px; font-weight: 300; margin-bottom: 3rem;
+    }
+
+    /* SOBRE */
+    .sobre-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    @media (max-width: 768px) { .sobre-grid { grid-template-columns: 1fr; gap: 3rem; } }
+    .sobre-text p {
+      font-size: 1rem; color: var(--text);
+      font-weight: 300; line-height: 1.8; margin-bottom: 1.1rem;
+    }
+    .sobre-text p strong { color: #f8fafc; font-weight: 500; }
+    .skills-group { margin-bottom: 1.75rem; }
+    .skills-group-title {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.85rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.3rem 0.75rem; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      font-size: 0.8rem; font-weight: 500; color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .tag:hover { border-color: rgba(56,189,248,0.3); }
+    .tag-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* PROJETOS */
+    #projetos { background: var(--bg2); }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      display: flex; flex-direction: column;
+      padding: 1.75rem; border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      text-decoration: none; color: inherit;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--card-top, var(--accent)); opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--border-h);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .project-card:hover::before { opacity: 1; }
+    .card-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; margin-bottom: 1.25rem;
+    }
+    .card-icon-bg {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-icon-bg svg { width: 22px; height: 22px; }
+    .card-ext-icon { color: var(--muted); flex-shrink: 0; }
+    .card-title {
+      font-family: var(--fh); font-size: 1.1rem; font-weight: 700;
+      color: #f8fafc; letter-spacing: -0.02em; margin-bottom: 0.6rem;
+    }
+    .card-desc {
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.7; font-weight: 300; flex: 1; margin-bottom: 1.25rem;
+    }
+    .card-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .stack-badge {
+      padding: 0.18rem 0.6rem; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.03em;
+    }
+    .badge-blue   { background: rgba(96,165,250,0.12);  color: #60a5fa; }
+    .badge-cyan   { background: rgba(34,211,238,0.12);  color: #22d3ee; }
+    .badge-green  { background: rgba(52,211,153,0.12);  color: #34d399; }
+    .badge-orange { background: rgba(251,146,60,0.12);  color: #fb923c; }
+    .badge-yellow { background: rgba(251,191,36,0.12);  color: #fbbf24; }
+    .badge-purple { background: rgba(167,139,250,0.12); color: #a78bfa; }
+    .badge-gray   { background: rgba(148,163,184,0.1);  color: #94a3b8; }
+
+    /* TIMELINE */
+    .timeline { position: relative; max-width: 780px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 6px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), rgba(56,189,248,0.05));
+    }
+    .timeline-item {
+      display: flex; gap: 1.75rem;
+      padding-bottom: 2.75rem; position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid var(--border); background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+      transition: border-color 0.3s;
+    }
+    .timeline-dot svg { width: 14px; height: 14px; color: var(--accent); }
+    .timeline-item:hover .timeline-dot { border-color: var(--accent); }
+    .timeline-content { padding-top: 0.4rem; flex: 1; }
+    .timeline-period {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.3rem;
+    }
+    .timeline-role {
+      font-family: var(--fh); font-size: 1.1rem; font-weight: 700;
+      color: #f8fafc; letter-spacing: -0.02em; margin-bottom: 0.15rem;
+    }
+    .timeline-company {
+      font-size: 0.875rem; color: var(--muted); margin-bottom: 0.85rem;
+    }
+    .timeline-bullets {
+      list-style: none; display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .timeline-bullets li {
+      font-size: 0.9rem; color: #94a3b8;
+      line-height: 1.65; font-weight: 300;
+      padding-left: 1rem; position: relative;
+    }
+    .timeline-bullets li::before {
+      content: ''; position: absolute; left: 0; top: 0.58em;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); opacity: 0.6;
+    }
+    .timeline-bullets li strong { color: #e2e8f0; font-weight: 500; }
+    .stack-note { color: var(--muted); font-size: 0.82rem; font-weight: 500; }
+
+    /* Formation — mesma largura de card que Certificações (3 colunas, largura total) */
+    .formation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem; margin-top: 1.5rem; max-width: 100%;
+    }
+    @media (max-width: 768px) {
+      .formation-grid { grid-template-columns: 1fr; }
+    }
+    .formation-card {
+      padding: 1.25rem 1.5rem; border: 1px solid var(--border);
+      border-radius: 12px; background: rgba(255,255,255,0.02);
+    }
+    .formation-card h4 {
+      font-family: var(--fh); font-weight: 700; color: #f8fafc;
+      font-size: 0.95rem; margin-bottom: 0.25rem;
+    }
+    .formation-card p { font-size: 0.82rem; color: var(--muted); }
+
+    /* CONTATO */
+    #contato {
+      background: var(--bg); text-align: center; position: relative; overflow: hidden;
+    }
+    #contato::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(56,189,248,0.05) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .contact-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+    .contact-inner h2 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 1rem; }
+    .contact-inner p {
+      color: var(--muted); font-size: 1rem; font-weight: 300;
+      margin-bottom: 2.5rem; line-height: 1.7;
+    }
+    .contact-links {
+      display: flex; justify-content: center;
+      flex-wrap: wrap; gap: 0.85rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.5rem, 5vw, 4rem);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--muted); }
+    .footer-copy span { color: var(--text); }
+    .footer-social { display: flex; gap: 1.25rem; }
+    .footer-social a {
+      color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.8rem; transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--accent); }
+    .footer-social svg { width: 14px; height: 14px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Edith Vidal<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Contato</a>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        Analytics Engineer &middot; Pipeline de Dados &middot; Business Intelligence
+      </div>
+      <h1>Edith Cristina de Souza Ramos<br><em>Vidal</em></h1>
+      <p class="hero-desc">
+        Profissional com mais de 5 anos de experiência analisando dados em áreas de Produto e Tecnologia, transformando dados operacionais em insights que apoiam decisões estratégicas e melhoria de processos.
+      </p>
+      <div class="hero-actions">
+        <a href="#projetos" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Ver Projetos
+        </a>
+        <a href="https://www.linkedin.com/in/edith-cristina-vidal" target="_blank" rel="noopener" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/evidal1990" target="_blank" rel="noopener" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="sobre-grid">
+      <div>
+        <p class="section-label fade-up">Sobre mim</p>
+        <h2 class="fade-up">Transformo dados operacionais em insights estratégicos</h2>
+        <div class="sobre-text fade-up">
+          <p>Atuo na construção e análise de bases de dados de performance de Engenharia, estruturando <strong>KPIs</strong> e métricas de fluxo para trazer maior visibilidade, previsibilidade e eficiência às entregas dos times.</p>
+          <p>Conduzi iniciativas de experimentação utilizando <strong>testes A/B</strong> em projetos de aquisição de usuários e SEO, gerando insights que contribuíram para otimização de conversão e crescimento de tráfego orgânico.</p>
+          <p>Desenvolvi um <strong>pipeline de dados</strong> para análise comportamental de usuários em contexto de E-commerce, utilizando <strong>arquitetura medalhão</strong> e processos de <strong>ETL</strong> para estruturar dados confiáveis que suportam análises e monitoramento de KPIs como LTV, MRPU, taxa de conversão, churn e NPS.</p>
+          <p>Desenvolvi um projeto de <strong>Data Science</strong> para análise e previsão de eventos de risco com dados de acidentes rodoviários no Brasil, aplicando análise exploratória, tratamento de dados e modelos de <strong>Machine Learning</strong> para identificação de padrões e suporte à tomada de decisão baseada em dados.</p>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="skills-group">
+          <p class="skills-group-title">Linguagens &amp; Ferramentas</p>
+          <div class="tags">
+            <span class="tag"><span class="tag-dot" style="background:#22d3ee"></span>Python</span>
+            <span class="tag"><span class="tag-dot" style="background:#facc15"></span>SQL</span>
+            <span class="tag"><span class="tag-dot" style="background:#ef4444"></span>PostgreSQL</span>
+            <span class="tag"><span class="tag-dot" style="background:#fb7185"></span>AWS</span>
+            <span class="tag"><span class="tag-dot" style="background:#60a5fa"></span>GCP</span>
+            <span class="tag"><span class="tag-dot" style="background:#34d399"></span>FastAPI</span>
+            <span class="tag"><span class="tag-dot" style="background:#f59e0b"></span>NumPy</span>
+            <span class="tag"><span class="tag-dot" style="background:#a3e635"></span>Polars</span>
+            <span class="tag"><span class="tag-dot" style="background:#2dd4bf"></span>Pandas</span>
+            <span class="tag"><span class="tag-dot" style="background:#818cf8"></span>Seaborn</span>
+            <span class="tag"><span class="tag-dot" style="background:#c084fc"></span>Matplotlib</span>
+            <span class="tag"><span class="tag-dot" style="background:#f472b6"></span>dbt</span>
+            <span class="tag"><span class="tag-dot" style="background:#e879f9"></span>Scikit-learn</span>
+            <span class="tag"><span class="tag-dot" style="background:#fb923c"></span>Streamlit</span>
+            <span class="tag"><span class="tag-dot" style="background:#0052CC"></span>Jira</span>
+            <span class="tag"><span class="tag-dot" style="background:#f7df1e"></span>Javascript</span>
+            <span class="tag"><span class="tag-dot" style="background:#217346"></span>Excel</span>
+            <span class="tag"><span class="tag-dot" style="background:#F2C811"></span>Power BI</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-group-title">Especialidades</p>
+          <div class="tags">
+            <span class="tag"><span class="tag-dot" style="background:#38bdf8"></span>ETL</span>
+            <span class="tag"><span class="tag-dot" style="background:#a78bfa"></span>KPIs</span>
+            <span class="tag"><span class="tag-dot" style="background:#34d399"></span>Pipeline</span>
+          </div>
+        </div>
+        <div class="skills-group" style="margin-bottom:0">
+          <p class="skills-group-title">Idiomas</p>
+          <div class="tags">
+            <span class="tag"><span class="tag-dot" style="background:#60a5fa"></span>Português (Nativo)</span>
+            <span class="tag"><span class="tag-dot" style="background:#34d399"></span>Inglês (Avançado)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos">
+    <p class="section-label fade-up">Projetos</p>
+    <h2 class="fade-up">Projetos baseados em<br>problemas reais</h2>
+
+    <div class="projects-grid">
+
+      <a href="https://github.com/evidal1990/ecommerce_user_behavior_pipeline" target="_blank" rel="noopener"
+         class="project-card fade-up" style="--card-top:#fbbf24;">
+        <div class="card-header">
+          <div class="card-icon-bg" style="background:rgba(251,191,36,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <svg class="card-ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+        <p class="card-title">Pipeline de Dados para Análise Comportamental de Usuários</p>
+        <p class="card-desc">Pipeline de dados para análise comportamental de usuários em contexto de E-commerce, utilizando arquitetura medalhão e processos de ETL para estruturar dados confiáveis que suportam análises e monitoramento de KPIs como LTV, MRPU, taxa de conversão, churn e NPS.</p>
+        <div class="card-stack">
+          <span class="stack-badge badge-yellow">Python</span>
+          <span class="stack-badge badge-cyan">PostgreSQL</span>
+          <span class="stack-badge badge-gray">Polars</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/evidal1990/ecommerce_user_behavior_api" target="_blank" rel="noopener"
+         class="project-card fade-up" style="--card-top:#38bdf8;">
+        <div class="card-header">
+          <div class="card-icon-bg" style="background:rgba(56,189,248,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </div>
+          <svg class="card-ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+        <p class="card-title">API de Análise Comportamental de Usuários</p>
+        <p class="card-desc">API de análise comportamental de usuários em contexto de E-commerce, utilizando FastAPI para criar endpoints de análises e monitoramento de KPIs como LTV, MRPU, taxa de conversão, churn e NPS.</p>
+        <div class="card-stack">
+          <span class="stack-badge badge-blue">Python</span>
+          <span class="stack-badge badge-purple">PostgreSQL</span>
+          <span class="stack-badge badge-cyan">FastAPI</span>
+          <span class="stack-badge badge-gray">Polars</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/evidal1990/coderhouse_datascience" target="_blank" rel="noopener"
+         class="project-card fade-up" style="--card-top:#a78bfa;">
+        <div class="card-header">
+          <div class="card-icon-bg" style="background:rgba(167,139,250,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <svg class="card-ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+        <p class="card-title">Análise e Previsão de Eventos de Risco com ML</p>
+        <p class="card-desc">Análise e previsão de eventos de risco com dados de acidentes rodoviários no Brasil, aplicando análise exploratória, tratamento de dados e modelos de Machine Learning para identificação de padrões e suporte à tomada de decisão baseada em dados.</p>
+        <div class="card-stack">
+          <span class="stack-badge badge-blue">Python</span>
+          <span class="stack-badge badge-cyan">Pandas</span>
+          <span class="stack-badge badge-purple">Scikit-learn</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- EXPERIÊNCIA -->
+  <section id="experiencia">
+    <p class="section-label fade-up">Experiência Profissional</p>
+    <h2 class="fade-up">KPIs, Melhoria Contínua e Liderança</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="timeline-content">
+          <p class="timeline-period">Dezembro de 2023 — Dezembro de 2025</p>
+          <p class="timeline-role">Delivery Performance Analyst</p>
+          <p class="timeline-company">Super Frete</p>
+          <ul class="timeline-bullets">
+            <li>Liderança de equipes de Aquisição e E-Commerce, acompanhando KPIs e garantindo eficiência operacional</li>
+            <li>Colaboração com Produto e Engenharia na priorização de demandas e melhoria de processos</li>
+            <li>Extração e análise de dados do Jira (Jira Cloud for Sheets) para acompanhamento da performance das entregas de Engenharia</li>
+            <li>Análise de KPIs e construção de relatórios e dashboards no Excel para apoio à tomada de decisão</li>
+            <li>Estruturação inicial do Service Desk e definição de processo de priorização de demandas</li>
+            <li>Realização de code reviews e uso de ferramentas de IA na IDE para apoio no desenvolvimento</li>
+            <li>Ponto focal do processo de deploy Web e Mobile, garantindo organização e previsibilidade das entregas</li>
+            <li>Monitoramento de APIs no GCP e documentação de processos operacionais</li>
+            <li class="stack-note">Stack: GCP &middot; Git &middot; Excel &middot; AI Agents &middot; Inteligência Artificial &middot; KPIs &middot; APIs &middot; Jira &middot Bitbucket &middot; Google Play &middot; App Store &middot; Javascript</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        </div>
+        <div class="timeline-content">
+          <p class="timeline-period">Março de 2020 — Julho de 2023</p>
+          <p class="timeline-role">Delivery Performance Analyst</p>
+          <p class="timeline-company">Passei Direto</p>
+          <ul class="timeline-bullets">
+            <li>Monitoramento da performance das equipes de Engenharia por meio de KPIs e métricas de fluxo (Lead Time, Cycle Time, Throughput e Flow Efficiency), identificando gargalos e oportunidades de melhoria</li>
+            <li>Extração e análise de dados do Jira utilizando JQL para acompanhar a previsibilidade e eficiência das entregas</li>
+            <li>Construção e manutenção de dashboards e relatórios de performance para apoiar o acompanhamento das entregas e a tomada de decisão</li>
+            <li>Automação da coleta e tratamento de dados para reduzir processos manuais e aumentar a confiabilidade das análises</li>
+            <li>Análise de dados utilizando Excel e SQL para investigar problemas que impactam o fluxo de entrega</li>
+            <li>Apoio ao Product Manager e lideranças de Produto e Tecnologia na priorização de demandas com base em impacto e ROI</li>
+            <li>Condução de iniciativas de melhoria contínua para otimizar o fluxo de trabalho e aumentar a eficiência das equipes</li>
+            <li>Documentação de métricas e processos para padronizar e dar transparência ao acompanhamento da performance</li>
+            <li>Monitoramento de APIs no CloudWatch para acompanhar a estabilidade das aplicações e identificar possíveis falhas em deploys</li>
+            <li class="stack-note">Stack: AWS &middot; Git &middot; Excel &middot; SQL &middot; Scrum &middot; KPIs &middot; APIs &middot; Jira &middot GitHub &middot; Javascript</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div class="timeline-content">
+          <p class="timeline-period">Janeiro de 2017 — Maio de 2020</p>
+          <p class="timeline-role">Líder de Garantia de Qualidade</p>
+          <p class="timeline-company">Passei Direto</p>
+          <ul class="timeline-bullets">
+            <li>Suporte a múltiplas equipes de desenvolvimento, garantindo a qualidade das entregas e contribuindo para a eficiência do fluxo de desenvolvimento</li>
+            <li>Planejamento e acompanhamento do cronograma de testes, utilizando Excel para organização e monitoramento das atividades de qualidade, alinhando o fluxo de testes às entregas de Engenharia</li>
+            <li>Realização de code reviews com foco na qualidade técnica das entregas do time</li>
+            <li>Atuação como ponto focal entre Customer Success e Produto, utilizando consultas SQL para investigação de incidentes reportados por usuários</li>
+            <li>Condução de reuniões de alinhamento com times de Produto e Engenharia para priorização e acompanhamento de demandas</li>
+            <li>Condução de processos seletivos de Analistas de Qualidade de Software e Desenvolvedores, contribuindo para a contratação de profissionais alinhados às necessidades técnicas de Engenharia</li>
+            <li>Condução de avaliações de desempenho de Analistas de Qualidade de Software, com base nas competências técnicas e comportamentais esperadas</li>
+            <li>Realização de reuniões individuais (One-on-One) para acompanhamento de desempenho, desenvolvimento profissional e alinhamento de objetivos da equipe</li>
+            <li class="stack-note">Stack: Javascript &middot; SQL &middot; Excel &middot; Jira &middot; Protractor</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="timeline-content">
+          <p class="timeline-period">Novembro de 2013 — Dezembro de 2016</p>
+          <p class="timeline-role">Analista de Garantia de Qualidade</p>
+          <p class="timeline-company">Passei Direto</p>
+          <ul class="timeline-bullets">
+            <li>Participação em reuniões de planejamento com o time de desenvolvimento e Produto para alinhamento das prioridades da semana</li>
+            <li>Participação em reuniões de retrospectiva para discussão sobre gargalos e melhorias no processo de desenvolvimento</li>
+            <li>Priorização de demandas de testes automatizados para automatizar as principais funcionalidades do sistema</li>
+            <li>Documentação e planejamento de casos de teste</li>
+            <li>Suporte a múltiplas equipes de desenvolvimento, garantindo a qualidade das entregas e contribuindo para a eficiência do fluxo de desenvolvimento</li>
+            <li>Planejamento e acompanhamento do cronograma de testes, utilizando Excel para organização e monitoramento das atividades de qualidade, alinhando o fluxo de testes às entregas de Engenharia</li>
+            <li>Criação e execução de consultas SQL nos testes automatizados para validar os dados gerados e garantir que estejam consistentes com as regras de negócio</li>
+            <li>Implementação de testes automatizados da interação do usuário com o sistema para agilizar o processo de teste</li>
+            <li class="stack-note">Stack: Javascript &middot; SQL &middot; Selenium WebDriver &middot; Protractor</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="timeline-content">
+        <p class="timeline-period">Janeiro de 2010 — Novembro de 2013</p>
+        <p class="timeline-role">Analista de Requisitos & Analista de Teste</p>
+        <p class="timeline-company">Laboratório de Engenharia de Software (PUC-Rio)</p>
+        <ul class="timeline-bullets">
+          <li>Participação em reuniões de alinhamento com o cliente para o levantamento de requisitos necessários para o desenvolvimento do sistema</li>
+          <li>Participação em reuniões de alinhamento com a equipe de desenvolvimento para alinhamento de prioridades</li>
+          <li>Documentação e planejamento de casos de teste</li>
+          <li>Criação e execução de consultas SQL nos testes automatizados para validar os dados gerados e garantir que estejam consistentes com as regras de negócio</li>
+          <li>Implementação de testes automatizados da interação do usuário com o sistema para agilizar o processo de teste</li>
+          <li class="stack-note">Stack: SQL &middot; Excel &middot; Jira &middot; Java</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+    <div style="margin-top:4rem;" class="fade-up">
+      <p class="section-label">Formação acadêmica</p>
+      <div class="formation-grid">
+        <div class="formation-card">
+          <h4>Bacharelado em Sistemas de Informação</h4>
+          <p>PUC-Rio &nbsp;&middot;&nbsp; 2008 – 2013</p>
+        </div>
+        <div class="formation-card">
+          <h4>Pós Graduação em Liderança e Gestão em Tecnologia </h4>
+          <p>Conquer Business School &nbsp;&middot;&nbsp; 2023 – 2024</p>
+          <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:4rem;" class="fade-up">
+      <p class="section-label">Certificações</p>
+      <div class="formation-grid">
+        <div class="formation-card">
+          <h4>Fundamentos de Engenharia de Dados</h4>
+          <p>Data Science Academy</p>
+          <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
+            <span class="tag" style="font-size:0.75rem;">Engenharia de Dados</span>
+            <span class="tag" style="font-size:0.75rem;">ETL</span>
+            <span class="tag" style="font-size:0.75rem;">Modelagem de Dados</span>
+          </div>
+        </div>
+        <div class="formation-card">
+          <h4>SQL para Análise de Dados e Data Science</h4>
+          <p>Data Science Academy</p>
+          <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
+            <span class="tag" style="font-size:0.75rem;">Análise Exploratória de Dados</span>
+            <span class="tag" style="font-size:0.75rem;">PostgreSQL</span>
+            <span class="tag" style="font-size:0.75rem;">Limpeza de Dados</span>
+            <span class="tag" style="font-size:0.75rem;">Otimização de Consultas</span>
+          </div>
+        </div>
+        <div class="formation-card">
+          <h4>Microsoft Power BI para Business Intelligence e Data Science</h4>
+          <p>Data Science Academy</p>
+          <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
+            <span class="tag" style="font-size:0.75rem;">Business Intelligence</span>
+            <span class="tag" style="font-size:0.75rem;">Power BI</span>
+            <span class="tag" style="font-size:0.75rem;">Estatística</span>
+            <span class="tag" style="font-size:0.75rem;">DAX</span>
+            <span class="tag" style="font-size:0.75rem;">Power Query</span>
+          </div>
+        </div>
+        <div class="formation-card">
+          <h4>Data Science</h4>
+          <p>Coderhouse</p>
+          <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
+            <span class="tag" style="font-size:0.75rem;">Python</span>
+            <span class="tag" style="font-size:0.75rem;">Estatística</span>
+            <span class="tag" style="font-size:0.75rem;">Pandas</span>
+            <span class="tag" style="font-size:0.75rem;">Scikit-learn</span>
+            <span class="tag" style="font-size:0.75rem;">NumPy</span>
+            <span class="tag" style="font-size:0.75rem;">Seaborn</span>
+            <span class="tag" style="font-size:0.75rem;">Matplotlib</span>
+            <span class="tag" style="font-size:0.75rem;">Machine Learning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="contact-inner">
+      <p class="section-label fade-up">Contato</p>
+      <h2 class="fade-up">Vamos conversar?</h2>
+      <p class="fade-up">Estou aberta a oportunidades de trabalho e trocas de conhecimento. Entre em contato comigo através do LinkedIn ou e-mail.</p>
+      <div class="contact-links fade-up">
+        <a href="https://www.linkedin.com/in/edith-cristina-vidal/" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:ecsr.vidal@gmail.com" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          ecsr.vidal@gmail.com
+        </a>
+        <a href="https://github.com/evidal1990" target="_blank" rel="noopener" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="footer-copy">Desenvolvido por <span>Edith Cristina de Souza Ramos Vidal</span> &mdash; 2026</p>
+  <div class="footer-social">
+    <a href="https://www.linkedin.com/in/edith-cristina-vidal/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="mailto:ecsr.vidal@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      E-mail
+    </a>
+    <a href="https://github.com/evidal1990" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      GitHub
+    </a>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
