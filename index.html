@@ -11,14 +11,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #080b10;
-      --bg2:      #0d1117;
-      --surface:  #111820;
+      --bg:       #161b21;
+      --bg2:      #1b222b;
+      --surface:  #222b35;
+      --card-bg:  #2a3440;
       --border:   rgba(255,255,255,0.06);
       --border-h: rgba(56,189,248,0.4);
-      --text:     #e2e8f0;
-      --muted:    #64748b;
-      --accent:   #38bdf8;
+      --text:     #ffffff;
+      --muted:    #ffffff;
+      --accent:   #e36e1b;
       --fh:       'Syne', sans-serif;
       --fb:       'DM Sans', sans-serif;
       --ease:     cubic-bezier(0.4,0,0.2,1);
@@ -91,8 +92,8 @@
       content: '';
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 100%);
       pointer-events: none;
@@ -191,7 +192,7 @@
     .skills-group { margin-bottom: 1.75rem; }
     .skills-group-title {
       font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 0.85rem;
+      text-transform: uppercase; color: #fff; margin-bottom: 0.85rem;
     }
     .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .tag {
@@ -204,6 +205,10 @@
     }
     .tag:hover { border-color: rgba(56,189,248,0.3); }
     .tag-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    #sobre .skills-group .tag {
+      background: var(--card-bg);
+      border-color: rgba(255,255,255,0.1);
+    }
 
     /* PROJETOS */
     #projetos { background: var(--bg2); }
@@ -215,7 +220,7 @@
       display: flex; flex-direction: column;
       padding: 1.75rem; border-radius: 16px;
       border: 1px solid var(--border);
-      background: var(--surface);
+      background: var(--card-bg);
       text-decoration: none; color: inherit;
       transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
       position: relative; overflow: hidden;
@@ -259,7 +264,7 @@
     .badge-orange { background: rgba(251,146,60,0.12);  color: #fb923c; }
     .badge-yellow { background: rgba(251,191,36,0.12);  color: #fbbf24; }
     .badge-purple { background: rgba(167,139,250,0.12); color: #a78bfa; }
-    .badge-gray   { background: rgba(148,163,184,0.1);  color: #94a3b8; }
+    .badge-gray   { background: rgba(148,163,184,0.1);  color: #ffffff; }
 
     /* TIMELINE */
     .timeline { position: relative; max-width: 780px; }
@@ -299,7 +304,7 @@
       list-style: none; display: flex; flex-direction: column; gap: 0.55rem;
     }
     .timeline-bullets li {
-      font-size: 0.9rem; color: #94a3b8;
+      font-size: 0.9rem; color: #ffffff;
       line-height: 1.65; font-weight: 300;
       padding-left: 1rem; position: relative;
     }
@@ -308,7 +313,7 @@
       width: 5px; height: 5px; border-radius: 50%;
       background: var(--accent); opacity: 0.6;
     }
-    .timeline-bullets li strong { color: #e2e8f0; font-weight: 500; }
+    .timeline-bullets li strong { color: #ffffff; font-weight: 500; }
     .stack-note { color: var(--muted); font-size: 0.82rem; font-weight: 500; }
 
     /* Formation — mesma largura de card que Certificações (3 colunas, largura total) */
@@ -329,6 +334,68 @@
       font-size: 0.95rem; margin-bottom: 0.25rem;
     }
     .formation-card p { font-size: 0.82rem; color: var(--muted); }
+
+    /* Certificações — mesmo visual dos cards de Projetos */
+    .certifications-grid,
+    .education-grid {
+      gap: 1.25rem;
+    }
+    .certifications-grid .formation-card,
+    .education-grid .formation-card {
+      background: var(--card-bg);
+      padding: 1.75rem;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .certifications-grid .formation-card::before,
+    .education-grid .formation-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--card-top, var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .certifications-grid .formation-card:hover,
+    .education-grid .formation-card:hover {
+      border-color: var(--border-h);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    }
+    .certifications-grid .formation-card:hover::before,
+    .education-grid .formation-card:hover::before {
+      opacity: 1;
+    }
+    .certifications-grid .formation-card h4,
+    .education-grid .formation-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+    .certifications-grid .formation-card p,
+    .education-grid .formation-card p {
+      font-size: 0.88rem;
+      margin-bottom: 0;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .certifications-grid .tags {
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+    .certifications-grid .tag {
+      padding: 0.18rem 0.6rem;
+      border-radius: 4px;
+      border: none;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
 
     /* CONTATO */
     #contato {
@@ -517,7 +584,6 @@
           <span class="stack-badge badge-blue">Python</span>
           <span class="stack-badge badge-purple">PostgreSQL</span>
           <span class="stack-badge badge-cyan">FastAPI</span>
-          <span class="stack-badge badge-gray">Polars</span>
         </div>
       </a>
 
@@ -565,7 +631,7 @@
             <li>Realização de code reviews e uso de ferramentas de IA na IDE para apoio no desenvolvimento</li>
             <li>Ponto focal do processo de deploy Web e Mobile, garantindo organização e previsibilidade das entregas</li>
             <li>Monitoramento de APIs no GCP e documentação de processos operacionais</li>
-            <li class="stack-note">Stack: GCP &middot; Git &middot; Excel &middot; AI Agents &middot; Inteligência Artificial &middot; KPIs &middot; APIs &middot; Jira &middot Bitbucket &middot; Google Play &middot; App Store &middot; Javascript</li>
+            <li class="stack-note"><strong>Stack: GCP &middot; Git &middot; Excel &middot; AI Agents &middot; Inteligência Artificial &middot; KPIs &middot; APIs &middot; Jira &middot Bitbucket &middot; Google Play &middot; App Store &middot; Javascript</strong></li>
           </ul>
         </div>
       </div>
@@ -588,7 +654,7 @@
             <li>Condução de iniciativas de melhoria contínua para otimizar o fluxo de trabalho e aumentar a eficiência das equipes</li>
             <li>Documentação de métricas e processos para padronizar e dar transparência ao acompanhamento da performance</li>
             <li>Monitoramento de APIs no CloudWatch para acompanhar a estabilidade das aplicações e identificar possíveis falhas em deploys</li>
-            <li class="stack-note">Stack: AWS &middot; Git &middot; Excel &middot; SQL &middot; Scrum &middot; KPIs &middot; APIs &middot; Jira &middot GitHub &middot; Javascript</li>
+            <li class="stack-note"><strong>Stack: AWS &middot; Git &middot; Excel &middot; SQL &middot; Scrum &middot; KPIs &middot; APIs &middot; Jira &middot GitHub &middot; Javascript</strong></li>
           </ul>
         </div>
       </div>
@@ -610,7 +676,7 @@
             <li>Condução de processos seletivos de Analistas de Qualidade de Software e Desenvolvedores, contribuindo para a contratação de profissionais alinhados às necessidades técnicas de Engenharia</li>
             <li>Condução de avaliações de desempenho de Analistas de Qualidade de Software, com base nas competências técnicas e comportamentais esperadas</li>
             <li>Realização de reuniões individuais (One-on-One) para acompanhamento de desempenho, desenvolvimento profissional e alinhamento de objetivos da equipe</li>
-            <li class="stack-note">Stack: Javascript &middot; SQL &middot; Excel &middot; Jira &middot; Protractor</li>
+            <li class="stack-note"><strong>Stack: Javascript &middot; SQL &middot; Excel &middot; Jira &middot; Protractor &middot; NightwatchJS &middot; Jest</strong></li>
           </ul>
         </div>
       </div>
@@ -632,7 +698,7 @@
             <li>Planejamento e acompanhamento do cronograma de testes, utilizando Excel para organização e monitoramento das atividades de qualidade, alinhando o fluxo de testes às entregas de Engenharia</li>
             <li>Criação e execução de consultas SQL nos testes automatizados para validar os dados gerados e garantir que estejam consistentes com as regras de negócio</li>
             <li>Implementação de testes automatizados da interação do usuário com o sistema para agilizar o processo de teste</li>
-            <li class="stack-note">Stack: Javascript &middot; SQL &middot; Selenium WebDriver &middot; Protractor</li>
+            <li class="stack-note"><strong>Stack: Javascript &middot; SQL &middot; Selenium WebDriver &middot; Protractor</strong></li>
           </ul>
         </div>
       </div>
@@ -641,7 +707,7 @@
 
     <div class="timeline-item fade-up">
       <div class="timeline-dot">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 12 2 2 4-4"/></svg>
       </div>
       <div class="timeline-content">
         <p class="timeline-period">Janeiro de 2010 — Novembro de 2013</p>
@@ -653,7 +719,7 @@
           <li>Documentação e planejamento de casos de teste</li>
           <li>Criação e execução de consultas SQL nos testes automatizados para validar os dados gerados e garantir que estejam consistentes com as regras de negócio</li>
           <li>Implementação de testes automatizados da interação do usuário com o sistema para agilizar o processo de teste</li>
-          <li class="stack-note">Stack: SQL &middot; Excel &middot; Jira &middot; Java</li>
+          <li class="stack-note"><strong>Stack: SQL &middot; Excel &middot; Jira &middot; Java</strong></li>
         </ul>
       </div>
     </div>
@@ -662,12 +728,12 @@
 
     <div style="margin-top:4rem;" class="fade-up">
       <p class="section-label">Formação acadêmica</p>
-      <div class="formation-grid">
-        <div class="formation-card">
+      <div class="formation-grid education-grid">
+        <div class="formation-card" style="--card-top:#fbbf24;">
           <h4>Bacharelado em Sistemas de Informação</h4>
           <p>PUC-Rio &nbsp;&middot;&nbsp; 2008 – 2013</p>
         </div>
-        <div class="formation-card">
+        <div class="formation-card" style="--card-top:#38bdf8;">
           <h4>Pós Graduação em Liderança e Gestão em Tecnologia </h4>
           <p>Conquer Business School &nbsp;&middot;&nbsp; 2023 – 2024</p>
           <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
@@ -677,49 +743,49 @@
     </div>
     <div style="margin-top:4rem;" class="fade-up">
       <p class="section-label">Certificações</p>
-      <div class="formation-grid">
-        <div class="formation-card">
+      <div class="formation-grid certifications-grid">
+        <div class="formation-card" style="--card-top:#fbbf24;">
           <h4>Fundamentos de Engenharia de Dados</h4>
           <p>Data Science Academy</p>
           <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
-            <span class="tag" style="font-size:0.75rem;">Engenharia de Dados</span>
-            <span class="tag" style="font-size:0.75rem;">ETL</span>
-            <span class="tag" style="font-size:0.75rem;">Modelagem de Dados</span>
+            <span class="tag badge-cyan">Engenharia de Dados</span>
+            <span class="tag badge-orange">ETL</span>
+            <span class="tag badge-purple">Modelagem de Dados</span>
           </div>
         </div>
-        <div class="formation-card">
+        <div class="formation-card" style="--card-top:#38bdf8;">
           <h4>SQL para Análise de Dados e Data Science</h4>
           <p>Data Science Academy</p>
           <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
-            <span class="tag" style="font-size:0.75rem;">Análise Exploratória de Dados</span>
-            <span class="tag" style="font-size:0.75rem;">PostgreSQL</span>
-            <span class="tag" style="font-size:0.75rem;">Limpeza de Dados</span>
-            <span class="tag" style="font-size:0.75rem;">Otimização de Consultas</span>
+            <span class="tag badge-blue">Análise Exploratória de Dados</span>
+            <span class="tag badge-yellow">PostgreSQL</span>
+            <span class="tag badge-green">Limpeza de Dados</span>
+            <span class="tag badge-cyan">Otimização de Consultas</span>
           </div>
         </div>
-        <div class="formation-card">
+        <div class="formation-card" style="--card-top:#fb923c;">
           <h4>Microsoft Power BI para Business Intelligence e Data Science</h4>
           <p>Data Science Academy</p>
           <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
-            <span class="tag" style="font-size:0.75rem;">Business Intelligence</span>
-            <span class="tag" style="font-size:0.75rem;">Power BI</span>
-            <span class="tag" style="font-size:0.75rem;">Estatística</span>
-            <span class="tag" style="font-size:0.75rem;">DAX</span>
-            <span class="tag" style="font-size:0.75rem;">Power Query</span>
+            <span class="tag badge-orange">Business Intelligence</span>
+            <span class="tag badge-yellow">Power BI</span>
+            <span class="tag badge-purple">Estatística</span>
+            <span class="tag badge-blue">DAX</span>
+            <span class="tag badge-cyan">Power Query</span>
           </div>
         </div>
-        <div class="formation-card">
+        <div class="formation-card" style="--card-top:#a78bfa;">
           <h4>Data Science</h4>
           <p>Coderhouse</p>
           <div class="tags" style="margin-top:0.65rem;gap:0.4rem;">
-            <span class="tag" style="font-size:0.75rem;">Python</span>
-            <span class="tag" style="font-size:0.75rem;">Estatística</span>
-            <span class="tag" style="font-size:0.75rem;">Pandas</span>
-            <span class="tag" style="font-size:0.75rem;">Scikit-learn</span>
-            <span class="tag" style="font-size:0.75rem;">NumPy</span>
-            <span class="tag" style="font-size:0.75rem;">Seaborn</span>
-            <span class="tag" style="font-size:0.75rem;">Matplotlib</span>
-            <span class="tag" style="font-size:0.75rem;">Machine Learning</span>
+            <span class="tag badge-cyan">Python</span>
+            <span class="tag badge-purple">Estatística</span>
+            <span class="tag badge-green">Pandas</span>
+            <span class="tag badge-purple">Scikit-learn</span>
+            <span class="tag badge-orange">NumPy</span>
+            <span class="tag badge-blue">Seaborn</span>
+            <span class="tag badge-yellow">Matplotlib</span>
+            <span class="tag badge-blue">Machine Learning</span>
           </div>
         </div>
       </div>
