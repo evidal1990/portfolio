@@ -212,6 +212,19 @@
 
     /* PROJETOS */
     #projetos { background: var(--bg2); }
+
+    /* Formação e Certificações — mesmo fundo da seção Projetos */
+    .subsection-panel {
+      background: var(--bg2);
+      margin-left: calc(-1 * clamp(1.5rem, 5vw, 4rem));
+      margin-right: calc(-1 * clamp(1.5rem, 5vw, 4rem));
+      padding: clamp(4rem, 9vw, 7rem) clamp(1.5rem, 5vw, 4rem);
+      border-top: 1px solid var(--border);
+    }
+    .subsection-panel + .subsection-panel {
+      padding-top: 0;
+      border-top: none;
+    }
     .projects-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.25rem;
@@ -267,7 +280,7 @@
     .badge-gray   { background: rgba(148,163,184,0.1);  color: #ffffff; }
 
     /* TIMELINE */
-    .timeline { position: relative; max-width: 780px; }
+    .timeline { position: relative; max-width: 100%; }
     .timeline::before {
       content: ''; position: absolute; left: 0; top: 6px; bottom: 0;
       width: 1px;
@@ -525,12 +538,13 @@
             <span class="tag"><span class="tag-dot" style="background:#f7df1e"></span>Javascript</span>
             <span class="tag"><span class="tag-dot" style="background:#217346"></span>Excel</span>
             <span class="tag"><span class="tag-dot" style="background:#F2C811"></span>Power BI</span>
+            <span class="tag"><span class="tag-dot" style="background:#02f316"></span>Docker</span>
           </div>
         </div>
         <div class="skills-group">
           <p class="skills-group-title">Especialidades</p>
           <div class="tags">
-            <span class="tag"><span class="tag-dot" style="background:#38bdf8"></span>ETL</span>
+            <span class="tag"><span class="tag-dot" style="background:#38bdf8"></span>Extração, Transformação e Carga de Dados</span>
             <span class="tag"><span class="tag-dot" style="background:#a78bfa"></span>KPIs</span>
             <span class="tag"><span class="tag-dot" style="background:#34d399"></span>Pipeline</span>
           </div>
@@ -703,30 +717,28 @@
         </div>
       </div>
 
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div class="timeline-content">
+          <p class="timeline-period">Janeiro de 2010 — Novembro de 2013</p>
+          <p class="timeline-role">Analista de Requisitos & Analista de Teste</p>
+          <p class="timeline-company">Laboratório de Engenharia de Software (PUC-Rio)</p>
+          <ul class="timeline-bullets">
+            <li>Participação em reuniões de alinhamento com o cliente para o levantamento de requisitos necessários para o desenvolvimento do sistema</li>
+            <li>Participação em reuniões de alinhamento com a equipe de desenvolvimento para alinhamento de prioridades</li>
+            <li>Documentação e planejamento de casos de teste</li>
+            <li>Criação e execução de consultas SQL nos testes automatizados para validar os dados gerados e garantir que estejam consistentes com as regras de negócio</li>
+            <li>Implementação de testes automatizados da interação do usuário com o sistema para agilizar o processo de teste</li>
+            <li class="stack-note"><strong>Stack: SQL &middot; Excel &middot; Jira &middot; Java</strong></li>
+          </ul>
+        </div>
+      </div>
+
     </div>
 
-    <div class="timeline-item fade-up">
-      <div class="timeline-dot">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 12 2 2 4-4"/></svg>
-      </div>
-      <div class="timeline-content">
-        <p class="timeline-period">Janeiro de 2010 — Novembro de 2013</p>
-        <p class="timeline-role">Analista de Requisitos & Analista de Teste</p>
-        <p class="timeline-company">Laboratório de Engenharia de Software (PUC-Rio)</p>
-        <ul class="timeline-bullets">
-          <li>Participação em reuniões de alinhamento com o cliente para o levantamento de requisitos necessários para o desenvolvimento do sistema</li>
-          <li>Participação em reuniões de alinhamento com a equipe de desenvolvimento para alinhamento de prioridades</li>
-          <li>Documentação e planejamento de casos de teste</li>
-          <li>Criação e execução de consultas SQL nos testes automatizados para validar os dados gerados e garantir que estejam consistentes com as regras de negócio</li>
-          <li>Implementação de testes automatizados da interação do usuário com o sistema para agilizar o processo de teste</li>
-          <li class="stack-note"><strong>Stack: SQL &middot; Excel &middot; Jira &middot; Java</strong></li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-
-    <div style="margin-top:4rem;" class="fade-up">
+    <div class="subsection-panel fade-up" style="margin-top:4rem;">
       <p class="section-label">Formação acadêmica</p>
       <div class="formation-grid education-grid">
         <div class="formation-card" style="--card-top:#fbbf24;">
@@ -741,7 +753,7 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:4rem;" class="fade-up">
+    <div class="subsection-panel fade-up">
       <p class="section-label">Certificações</p>
       <div class="formation-grid certifications-grid">
         <div class="formation-card" style="--card-top:#fbbf24;">
